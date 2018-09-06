@@ -1,0 +1,28 @@
+//- Все примеси в этом файле должны начинаться c имени блока (svg-icon)
+
+mixin svg-icon(mods, svg_id, svg_url = 'img/sprite-svg.svg')
+
+  //- Принимает:
+  //-   svg_url {string} - ccылка на svg файл
+  //-   svg_id  {string} - id иконки в спрайте
+  //-   mods    {string} - список модификаторов
+  //- Вызов:
+        +svg-icon('some-mod', svg_id, svg_url)
+
+  -
+    // список модификаторов
+    var allMods = '';
+    if(typeof(mods) !== 'undefined' && mods) {
+      var modsList = mods.split(',');
+      for (var i = 0; i < modsList.length; i++) {
+        allMods = allMods + ' svg-icon--' + modsList[i].trim();
+      }
+    }
+
+  if svg_id
+    svg(class=allMods)&attributes(attributes)
+      use(xlink:href= svg_url + svg_id)
+  else
+    svg(class=allMods)&attributes(attributes)
+      use(xlink:href= svg_url)
+
